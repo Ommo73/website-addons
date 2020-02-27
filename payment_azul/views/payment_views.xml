@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="acquirer_form_ogone" model="ir.ui.view">
+            <field name="name">acquirer.form.azul</field>
+            <field name="model">payment.acquirer</field>
+            <field name="inherit_id" ref="payment.acquirer_form"/>
+            <field name="arch" type="xml">
+                <xpath expr='//group[@name="acquirer"]' position='after'>
+                    <group attrs="{'invisible': [('provider', '!=', 'azul')]}">
+                        <field name="azul_test_auth1" attrs="{'invisible': [('environment', '!=', 'test')]}"/>
+                        <field name="azul_test_auth2" attrs="{'invisible': [('environment', '!=', 'test')]}"/>
+                        <field name="azul_prod_auth1" attrs="{'invisible': [('environment', '=', 'test')]}"/>
+                        <field name="azul_prod_auth2" attrs="{'invisible': [('environment', '=', 'test')]}"/>
+                        <field name="azul_payment_channel"/>
+                        <field name="azul_store"/>
+                        <field name="azul_input_mode"/>
+                    </group>
+                </xpath>
+                <!-- TODO: Delete if azul has a Payment Page method -->
+                <xpath expr='//field[@name="payment_flow"]' position='attributes'>
+                    <attribute name="invisible">['|', ('token_implemented', '=', False), ('provider', '=', 'azul')]</attribute>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

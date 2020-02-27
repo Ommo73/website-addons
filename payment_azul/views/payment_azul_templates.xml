@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2019 Dinar Gabbasov <https://it-projects.info/team/DinarGabbasov>
+     Copyright 2019 Kolushov Alexandr <https://it-projects.info/team/KolushovAlexandr>
+     License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).-->
+<odoo noupdate="1">
+
+    <template id="azul_acquirer_button">
+        <form method="get" target="_self">
+            <button type="submit" width="100px"
+                    t-att-class="submit_class">
+                <img t-if="not submit_txt" src="/payment_azul/static/src/img/azul_icon.png"/>
+                <span t-if="submit_txt"><t t-esc="submit_txt"/> <span class="fa fa-long-arrow-right"/></span>
+            </button>
+        </form>
+    </template>
+
+    <template id="azul_s2s_form">
+        <input type="hidden" name="data_set" data-create-route="/payment/azul/s2s/create_json_3ds"/>
+        <div t-attf-class="mt8 #{'' if bootstrap_formatting else 'o_card_brand_detail'}">
+            <div t-att-class="'form-group col-md-12' if bootstrap_formatting else 'form-group'">
+                <input type="tel" name="cc_number" id="cc_number" class="form-control" placeholder="Card number" data-is-required="true"/>
+                <div class="card_placeholder"></div>
+                <div class="visa"></div>
+                <input type="hidden" name="cc_brand" value=""/>
+            </div>
+            <div t-att-class="'form-group col-md-5' if bootstrap_formatting else 'form-group'">
+                <input type="text" name="cc_holder_name" id="cc_holder_name" class="form-control" placeholder="Cardholder name" data-is-required="true"/>
+            </div>
+            <div t-att-class="'form-group col-md-3' if bootstrap_formatting else 'form-group'">
+                <input type="text" name="cc_expiry" id="cc_expiry" class="form-control" maxlength="7" placeholder="Expires (MM / YY)" data-is-required="true"/>
+            </div>
+            <div t-att-class="'form-group col-md-4' if bootstrap_formatting else 'form-group'">
+                <input type="text" name="cc_cvc" id="cc_cvc" class="form-control" maxlength="4" placeholder="CVC" data-is-required="true"/>
+            </div>
+        </div>
+        <input type="hidden" name="acquirer_id" t-att-value="id"/>
+        <input class="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+        <input t-if="return_url" type="hidden" name="return_url" t-att-value="return_url"/>
+        <input t-if="partner_id" type="hidden" name="partner_id" t-att-value="partner_id"/>
+    </template>
+
+    <template id="azul_s2s_popup">
+
+        <script type="text/javascript" src="/payment_azul/static/src/js/popup.js"></script>
+        <div class="hidden">
+            <input type="hidden" name="data_set" data-create-route="/payment/azul/s2s/create_json_3ds"/>
+
+            <input type="tel" name="card_number" id="cc_number" class="form-control" placeholder="Card number"/>
+            <input type="text" name="card_holder_name" id="cc_holder_name" class="form-control" placeholder="Cardholder name" />
+            <input type="text" name="card_expiration_date" id="cc_expiry" class="form-control" maxlength="7" placeholder="Expires (MM / YY)"/>
+            <input type="text" name="card_cvc" id="cc_cvc" class="form-control" maxlength="4" placeholder="CVC"/>
+
+            <input type="hidden" name="acquirer_id" t-att-value="id"/>
+            <input class="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+            <input t-if="return_url" type="hidden" name="return_url" t-att-value="return_url"/>
+            <input t-if="partner_id" type="hidden" name="partner_id" t-att-value="partner_id"/>
+        </div>
+    </template>
+
+    <template id="azul_payment" name="azul_payment" inherit_id="website_sale.payment">
+        <xpath expr="//div[hasclass('o_website_sale_rightfit')]" position="after">
+            <div id="azul_popup_modal" class="azul_popup_modal modal">
+                <div class="modal-content">
+                    <span class="close-btn x-btn">&amp;times</span>
+                    <div class="panel-heading">
+                        <div>
+                            <span class="company"></span>
+                        </div>
+                        <div>
+                            <span class="order"></span>
+                        </div>
+                        <div>
+                            <span class="user_email"></span>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <div class="card_template">
+                            <div class="card_number">
+                            </div>
+                            <div class="card_holder_name">
+                            </div>
+                            <div class="card_expiration_date">
+                            </div>
+                            <div class="cc_number">
+                                <input type="text" name="card_cvc" class="form-control" id="cc_cvc" maxlength="4" placeholder="CVC"/>
+                            </div>
+                        </div>
+
+                        <div class="saved_cards">
+                            <input type="tel" name="card_id" class="form-control" id="card_id" placeholder="Card number"/>
+                            <div class="cards">
+                            </div>
+                            <button type="button" class="btn btn-default new_card-btn">Add a New Card</button>
+                        </div>
+
+                        <div class="add_new_card">
+                            <div class="row">
+                                <div class="input_div col-md-12">
+                                    <input type="tel" name="card_number" class="form-control" id="cc_number" placeholder="Card number"/>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="input_div col-md-12">
+                                    <input type="text" name="card_holder_name" class="form-control" placeholder="Card Holder"/>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="input_div col-md-6">
+                                    <input type="text" name="card_expiration_date" id="cc_expiry" class="form-control" maxlength="7" placeholder="Exp(MM/YY)"/>
+                                </div>
+                                <div class="input_div col-md-6">
+                                    <input type="text" name="card_cvc" class="form-control" id="cc_cvc" maxlength="4" placeholder="CVC"/>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="remember_me col-md-12">
+                                    <label class="o_switch" for="swith_remember_me">
+                                        <input type="checkbox" name="remember_me" id="swith_remember_me"></input>
+                                        <span></span>
+                                        Remember me
+                                    </label>
+                                </div>
+                            </div>
+                            <button type="button" class="btn btn-default saved_card-btn">Saved Cards</button>
+
+                        </div>
+                    </div>
+                    <div class="panel-hidden">
+                    </div>
+                    <div class="panel-footer">
+                        <button type="button" class="btn btn-primary close-btn">Cancel</button>
+                        <button type="button" class="btn btn-primary payment-btn">Payment</button>
+                    </div>
+                </div>
+            </div>
+        </xpath>
+    </template>
+
+</odoo>

@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<!-- Copyright 2019 Dinar Gabbasov <https://it-projects.info/team/GabbasovDinar>
+     License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).-->
+<odoo>
+    <data noupdate="1">
+
+         <record id="config_azul_certificate_path" model="ir.config_parameter">
+            <field name="key">payment_azul.certificate_path</field>
+            <field name="value"></field>
+        </record>
+
+    </data>
+</odoo>

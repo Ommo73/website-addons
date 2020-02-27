@@ -1,0 +1,86 @@
+
+.azul_popup_modal {
+    display: none;
+    width: 300px;
+    position: absolute;
+    left: 50%;
+    top: 20%;
+    margin-left: -150px;
+    margin-top: -150px;
+}
+
+/* Modal Content/Box */
+.azul_popup_modal .modal-content {
+    background-color: #fefefe;
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    margin-top: 50px;
+}
+
+/* The Close Button */
+.azul_popup_modal .close-btn.x-btn {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* The Payment Button */
+.azul_popup_modal .payment-btn {
+    float: right;
+}
+
+.azul_popup_modal .panel-heading {
+    text-align: center;
+}
+
+.azul_popup_modal .add_new_card div {
+    margin-top: 3px;
+    margin-bottom: 3px;
+}
+
+.azul_popup_modal .saved_cards div {
+    margin: 3px;
+}
+
+#card_id {
+    display: none;
+}
+
+.card_template {
+    display: none;
+}
+
+.saved_cards {
+    display: none;
+}
+
+.add_new_card.hide_saved_btn .saved_card-btn {
+    display: none;
+}
+
+.new_card-btn {
+    width: 100%;
+}
+
+.saved_card-btn {
+    width: 100%;
+}
+
+.a_card {
+    border-bottom: solid;
+}
+
+.a_card .card_holder_name,
+.a_card .card_expiration_date,
+.a_card .cc_number {
+    display: none;
+}
+
+.a_card.selected .card_holder_name,
+.a_card.selected .card_expiration_date,
+.a_card.selected .cc_number {
+    display: block;
+}
