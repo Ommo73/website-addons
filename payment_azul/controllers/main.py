@@ -17,8 +17,8 @@ class AzulController(WebsiteSale):
 
     @http.route(['/payment/azul/s2s/create_json_3ds'], type='json', auth='public', csrf=False)
     def stripe_s2s_create_json_3ds(self, verify_validity=False, **kwargs):
-
         azul_card = request.env['azul.card']
+        kwargs['cc_expiry'] = kwargs['cc_expiry'][:2] + ' / ' + kwargs['cc_expiry'][-2:]
         if 'remember_me' in kwargs and kwargs['remember_me']:
             new_card = dict((k, kwargs[k]) for k in ('cc_number', 'cc_holder_name', 'cc_expiry', 'cc_cvc') if k in kwargs)
             new_card['card_holder_user_id'] = request.env.user.id
@@ -39,7 +39,7 @@ class AzulController(WebsiteSale):
                 }
 
         kwargs['CVC'] = kwargs['cc_cvc']
-        kwargs['Expiration'] = '20' + kwargs['cc_expiry'][:2] + kwargs['cc_expiry'][-2:]
+        kwargs['Expiration'] = '20' + kwargs['cc_expiry'][-2:] + kwargs['cc_expiry'][:2]
         kwargs['CardNumber'] = kwargs['cc_number']
 
         token = False
