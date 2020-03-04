@@ -9,7 +9,7 @@ from odoo.http import request
 from odoo.exceptions import UserError
 
 from .. import azul
-
+# import wdb
 
 _logger = logging.getLogger(__name__)
 
@@ -36,36 +36,43 @@ class PaymentAcquirerAzul(models.Model):
 
     @api.multi
     def _azul_process_datavault(self, data):
-
+        # wdb.set_trace()
         res = self._azul_call(azul.DATAVAULT_PROCESS, data)
 
-        if res.get('ISOCode') != azul.SUCCESS_STATUS:
-            raise exceptions.UserError("Method DataVault doesn't work. Wrong credentials?\n%s", res.get('ErrorDescription'))
+        if res['IsoCode'] != azul.SUCCESS_STATUS:
+            raise exceptions.UserError("Method DataVault doesn't work. Wrong credentials?\n%s" % (res['ErrorDescription']))
         return res
 
     @api.multi
     def _azul_process_transaction(self, data):
         data.update({
-            'PosInpuMode': self.azul_input_mode,
+            'PosInputMode': self.azul_input_mode,
             'TrxType': 'Sales',
             'AcquirerRefData': 1
         })
         res = self._azul_call(azul.TRANSACTION_PROCESS, data)
-
-        if res.get('ISOCode') != azul.SUCCESS_STATUS:
-            raise exceptions.UserError("Method Process Transaction doesn't work. Wrong credentials?\n%s", res.get('ErrorDescription'))
+        # wdb.set_trace()
+        if res['IsoCode'] != azul.SUCCESS_STATUS:
+            raise exceptions.UserError("Method Process Transaction doesn't work. Wrong credentials?\n%s" % (res['ErrorDescription']))
         return res
 
     @api.multi
     def _azul_call(self, operation, params):
         # TODO: auth OLOLO CHEK HERE auth1 auth2 tut verificirujuca
+        # wdb.set_trace()
         params.update({
             'Channel': self.azul_payment_channel,
             'Store': self.azul_store
         })
         sandbox = self.environment != 'prod'
+        if self.environment == 'prod':
+            auth1 = self.azul_prod_auth1
+            auth2 = self.azul_prod_auth2
+        else:
+            auth1 = self.azul_test_auth1
+            auth2 = self.azul_test_auth2
         # send soup zapros nuzhno chtob bylo ponyatno ot kakogo prodavca zapros
-        return azul.call(operation, params, sandbox=sandbox)
+        return azul.call(operation, params, sandbox=sandbox, auth1=auth1, auth2=auth2)
 
     def _get_feature_support(self):
         """Get advanced feature support by provider.
