@@ -35,7 +35,7 @@
 				<ul t-if="categ.child_id" class="submenu nav nav-pills flex-column nav-hierarchy" t-att-style="'width:100%;'+'background:white;margin-top:-1px;margin-left: 0;border: 1px solid rgba(128, 128, 128, 0.32);'">
 					<t t-foreach="categ.child_id" t-as="categ">
 						<t t-if="not search or categ.id in search_categories_ids">
-							<t t-call="website_sale.option_collapse_categories_recursive" />
+							<t t-call="emipro_theme_base.emipro_collapse_categories" />
 						</t>
 					</t>
 				</ul>
