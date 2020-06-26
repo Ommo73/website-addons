@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="filter_product_template_sale" model="ir.filters">
+            <field name="name">Товары со скидкой</field>
+            <field name="model_id">product.template</field>
+            <field name="domain">[('sale_product', '=', True)]</field>
+            <field name="user_id" eval="False"/>
+        </record>
+
+        <record id="filter_product_template_popular" model="ir.filters">
+            <field name="name">Популярные товары</field>
+            <field name="model_id">product.template</field>
+            <field name="domain">[('popular_product', '=', True)]</field>
+            <field name="user_id" eval="False"/>
+        </record>
+
+        <record id="filter_product_template_new" model="ir.filters">
+            <field name="name">Новинки</field>
+            <field name="model_id">product.template</field>
+            <field name="domain">[('new_product', '=', True)]</field>
+            <field name="user_id" eval="False"/>
+        </record>
+    </data>
+</odoo>

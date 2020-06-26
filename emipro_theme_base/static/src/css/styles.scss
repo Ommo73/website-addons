@@ -1,0 +1,27 @@
+ul.nav-pills li {
+    position: relative;
+    padding:10px;
+}
+.submenu {
+    @media screen and (min-width: 992px) {
+        position: absolute;
+        left:100%;
+        top: 0px;
+        width:auto;
+        visibility: hidden;
+        z-index:10000;
+        opacity: 0;
+        transform: translateY(10px);
+        transition: .3s ease-in-out;
+    }
+    @media screen and (max-width: 991px) {
+        border: none !important;
+        display: none;
+        padding-left: 15px;
+    }
+}
+li:hover > .submenu {
+    transform: rotateX(0deg);
+    visibility: visible;
+    opacity: 1;
+}

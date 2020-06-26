@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!--Slider filters-->
+        <record id="slider_filter_product_sale" model="slider.filter">
+            <field name="name">Товары со скидкой (фильтр)</field>
+            <field name="website_published">True</field>
+            <field name="filter_id" ref="filter_product_template_sale" />
+        </record>
+
+        <record id="slider_filter_product_popular" model="slider.filter">
+            <field name="name">Популярные товары (фильтр)</field>
+            <field name="website_published">True</field>
+            <field name="filter_id" ref="filter_product_template_popular" />
+        </record>
+
+        <record id="slider_filter_product_new" model="slider.filter">
+            <field name="name">Новинки (фильтр)</field>
+            <field name="website_published">True</field>
+            <field name="filter_id" ref="filter_product_template_new" />
+        </record>
+
+        <!--Sliders-->
+        <record id="slider_product_sale" model="slider">
+            <field name="name">Товары со скидкой</field>
+            <field name="active">True</field>
+            <field name="website_id" ref="website.default_website" />
+            <field name="slider_filter_ids" eval="[(6,0,[ref('slider_filter_product_popular')])]"/>
+            <field name="slider_style_id" ref="theme_clarico.clarico_slider_styles_two" />
+        </record>
+
+        <record id="slider_product_popular" model="slider">
+            <field name="name">Популярные товары</field>
+            <field name="active">True</field>
+            <field name="website_id" ref="website.default_website" />
+            <field name="slider_filter_ids" eval="[(6,0,[ref('slider_filter_product_sale')])]"/>
+            <field name="slider_style_id" ref="theme_clarico.clarico_slider_styles_two" />
+        </record>
+
+        <record id="slider_product_new" model="slider">
+            <field name="name">Новинки</field>
+            <field name="active">True</field>
+            <field name="website_id" ref="website.default_website" />
+            <field name="slider_filter_ids" eval="[(6,0,[ref('slider_filter_product_new')])]"/>
+            <field name="slider_style_id" ref="theme_clarico.clarico_slider_styles_two" />
+        </record>
+    </data>
+</odoo>
