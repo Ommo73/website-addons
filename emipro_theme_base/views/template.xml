@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<template id="theme_quickview_template" name="common theme quickview">
+		<div class="oe_theme_quickview_container">
+		</div>
+	</template>
+	<template id="theme_category_carousel" name="common theme category carousel">
+		<div class="oe_theme_category_carousel_container w-100">
+		</div>
+	</template>
+	<template id="website_menu_edit" name="Edit Menu">
+		<t t-call="website.layout">
+			<div id="wrap" t-ignore="True">
+				<hr />
+				<div class="container">
+					<div t-if="record">
+						<div t-field="record.html_menu" />
+					</div>
+				</div>
+			</div>
+		</t>
+	</template>
+
+	<template id="clarico_slider_preview" name="slider Preview">
+		<t t-call="website.layout">
+			<div class="input-group js_slider_snippet hidden" data-isemipro="true" t-att-data-slider-id="rec_id"/>
+	  	</t>
+	</template>
+
+	<template id="emipro_collapse_categories" inherit_id="website_sale.option_collapse_categories_recursive" name="Collapse Category Recursive">
+		<xpath expr="//li[hasclass('nav-item')]" position="replace">
+			<li class="nav-item">
+				<i t-if="categ.child_id" class="text-primary fa fa-chevron-right" style="margin-right:5px;cursor: auto;" role="img"/>
+				<a t-att-href="keep('/shop/category/' + slug(categ), category=0)" t-attf-class="nav-link#{' active' if categ.id == int(category or 0) else ''}" t-field="categ.name"></a>
+				<ul t-if="categ.child_id" class="submenu nav nav-pills flex-column nav-hierarchy" t-att-style="'width:100%;'+'background:white;margin-top:-1px;margin-left: 0;border: 1px solid rgba(128, 128, 128, 0.32);'">
+					<t t-foreach="categ.child_id" t-as="categ">
+						<t t-if="not search or categ.id in search_categories_ids">
+							<t t-call="website_sale.option_collapse_categories_recursive" />
+						</t>
+					</t>
+				</ul>
+			</li>
+		</xpath>
+    </template>
+</odoo>
