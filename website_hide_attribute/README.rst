@@ -2,7 +2,7 @@
  Checkboxes to hide attribute and sliders setting
 ==================================================
 
-The module add checkboxes to hide attribute and sliders setting
+The module adds checkboxes to hide attribute on common shop page. Also adds sliders setting
 
 Credits
 =======
@@ -18,12 +18,6 @@ Sponsors
 Maintainers
 -----------
 * `IT-Projects LLC <https://it-projects.info>`__
-
-      To get a guaranteed support you are kindly requested to purchase the module at `odoo apps store <https://apps.odoo.com/apps/modules/11.0/website_multi_company_blog/>`__.
-
-      Thank you for understanding!
-
-      `IT-Projects Team <https://www.it-projects.info/team>`__
 
 Further information
 ===================

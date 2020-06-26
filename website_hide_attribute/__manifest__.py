@@ -1,5 +1,7 @@
+# Copyright 2020 Artem Rafailov <https://it-projects.info/team/Ommo73/>
+# License LGPL-3.0 (https://www.gnu.org/licenses/lgpl.html).
 {
-    "name": """Checkboxes to hide attribute and sliders setting""",
+    "name": """Attributes and sliders""",
     "summary": """Checkboxes to hide attribute and sliders setting""",
     "category": "eCommerce",
     # "live_test_url": "http://apps.it-projects.info/shop/product/website-multi-company?version=11.0",
@@ -9,9 +11,9 @@
 
     "author": "IT-Projects LLC, Artem Rafailov",
     "support": "apps@it-projects.info",
-    "website": "https://it-projects.info/team/iledarn",
+    "website": "https://it-projects.info/team/Ommo73",
     "license": "LGPL-3",
-    # "price": 19.00,
+    # "price": 999.00,
     "currency": "EUR",
 
     "depends": [
