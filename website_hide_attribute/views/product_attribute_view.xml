@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Product attribute -->
+        <record id="attribute_tree_common_view" model="ir.ui.view">
+            <field name="name">product.attribute.tree.inherit</field>
+            <field name="model">product.attribute</field>
+            <field name="inherit_id" ref="product.product_attribute_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="after">
+                    <field name="common"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>
+
