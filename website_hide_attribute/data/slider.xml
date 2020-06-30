@@ -28,7 +28,7 @@
             <field name="active">True</field>
             <field name="website_id" ref="website.default_website" />
             <field name="slider_filter_ids" eval="[(6,0,[ref('slider_filter_product_popular')])]"/>
-            <field name="slider_style_id" ref="theme_clarico.clarico_slider_styles_two" />
+            <field name="slider_style_id" ref="theme_clarico.clarico_slider_styles_one" />
         </record>
 
         <record id="slider_product_popular" model="slider">
@@ -36,7 +36,7 @@
             <field name="active">True</field>
             <field name="website_id" ref="website.default_website" />
             <field name="slider_filter_ids" eval="[(6,0,[ref('slider_filter_product_sale')])]"/>
-            <field name="slider_style_id" ref="theme_clarico.clarico_slider_styles_two" />
+            <field name="slider_style_id" ref="theme_clarico.clarico_slider_styles_one" />
         </record>
 
         <record id="slider_product_new" model="slider">
@@ -44,7 +44,7 @@
             <field name="active">True</field>
             <field name="website_id" ref="website.default_website" />
             <field name="slider_filter_ids" eval="[(6,0,[ref('slider_filter_product_new')])]"/>
-            <field name="slider_style_id" ref="theme_clarico.clarico_slider_styles_two" />
+            <field name="slider_style_id" ref="theme_clarico.clarico_slider_styles_one" />
         </record>
     </data>
 </odoo>
